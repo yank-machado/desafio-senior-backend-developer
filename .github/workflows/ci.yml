@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+    - name: Lint with black
+      run: |
+        black --check .
+    - name: Lint with isort
+      run: |
+        isort --check .
+    - name: Lint with flake8
+      run: |
+        flake8 .
+    - name: Type check with mypy
+      run: |
+        mypy .
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: carteira
+          POSTGRES_PASSWORD: carteira123
+          POSTGRES_DB: carteira_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+    - name: Setup environment
+      run: |
+        cp .env.example .env || echo "No .env.example found, creating minimal .env"
+        echo "DB_USER=carteira" >> .env
+        echo "DB_PASSWORD=carteira123" >> .env
+        echo "DB_HOST=localhost" >> .env
+        echo "DB_PORT=5432" >> .env
+        echo "DB_NAME=carteira_db" >> .env
+        echo "SECRET_KEY=testsecretkey" >> .env
+        echo "DEBUG=True" >> .env
+    - name: Run migrations
+      run: |
+        alembic upgrade head
+    - name: Run tests
+      run: |
+        pytest --cov=. --cov-report=xml
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: true 

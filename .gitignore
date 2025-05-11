@@ -109,4 +109,5 @@ venv.bak/
 # Project specific
 logs/
 temp_upload/
-uploads/ 
+uploads/
+desafio-senior-backend-developer/ 

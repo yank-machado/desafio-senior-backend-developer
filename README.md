@@ -1,5 +1,10 @@
 # Desafio Técnico: Carteira Digital API
 
+[![CI](https://github.com/seu-usuario/carteira_digital/actions/workflows/ci.yml/badge.svg)](https://github.com/seu-usuario/carteira_digital/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/seu-usuario/carteira_digital/branch/main/graph/badge.svg)](https://codecov.io/gh/seu-usuario/carteira_digital)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 ##  Visão Geral do Projeto
 
 Este projeto é uma implementação de uma API para gerenciamento de carteira digital com documentos e transporte público, desenvolvido como demonstração de proficiência técnica em arquitetura de software e engenharia de back-end. A solução foi construída com foco em Clean Architecture e princípios SOLID.
@@ -130,8 +135,6 @@ O projeto foi desenhado considerando:
 - **Cache Estratégico**: Pontos de cache para otimizar performance
 - **Banco de Dados**: Modelagem eficiente e índices otimizados
 - **Arquitetura**: Preparada para eventual migração para microserviços
-
-
 
 ##  Requisitos para Execução
 
@@ -302,4 +305,38 @@ Todas as respostas são pré-definidas e focadas em auxiliar o usuário na utili
 GET /api/v1/health
 ```
 Retorna informações sobre o estado atual do sistema, útil para monitoramento.
+
+##  Qualidade de Código
+
+A qualidade do código é garantida através de várias ferramentas e práticas:
+
+- **Formatação**: Black e isort para formato consistente
+- **Linting**: Flake8 para análise estática
+- **Verificação de tipos**: Mypy para tipagem estática
+- **Pre-commit hooks**: Validações automáticas antes de cada commit
+- **CI/CD**: Testes e verificações automatizadas via GitHub Actions 
+
+##  Desenvolvimento
+
+### Comandos Úteis
+
+Utilizamos um Makefile para facilitar tarefas comuns:
+
+```bash
+make help           # Lista todos os comandos disponíveis
+make dev-install    # Instala dependências de desenvolvimento
+make lint           # Verifica qualidade do código
+make format         # Formata o código automaticamente
+make test           # Executa testes
+make coverage       # Gera relatório de cobertura de código
+make dev            # Inicia ambiente de desenvolvimento
+```
+
+### Contribuição
+
+Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para obter diretrizes detalhadas sobre como contribuir com este projeto.
+
+### Histórico de Mudanças
+
+Veja [CHANGELOG.md](CHANGELOG.md) para um registro de todas as mudanças notáveis.
 
