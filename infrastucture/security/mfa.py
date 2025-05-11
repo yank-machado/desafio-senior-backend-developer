@@ -38,8 +38,10 @@ class PyOTPMFAService(MFAService):
         img.save(buffered, format="PNG")
         return f"data:image/png;base64,{base64.b64encode(buffered.getvalue()).decode()}"
     
-    def verify_code(self, secret: str, code: str) -> bool:
-        """Verifica se o código TOTP é válido"""
+    async def verify_code(self, secret: str, code: str) -> bool:
+        """Verifica se o código TOTP é válido
+        Versão assíncrona para compatibilidade com contexto assíncrono.
+        """
         if not secret or not code:
             raise InvalidMFACodeError("Código ou segredo inválidos")
         

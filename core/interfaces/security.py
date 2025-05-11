@@ -44,7 +44,7 @@ class MFAService(ABC):
         pass
     
     @abstractmethod
-    def verify_code(self, secret: str, code: str) -> bool:
+    async def verify_code(self, secret: str, code: str) -> bool:
         """Verify if a TOTP code is valid"""
         pass
     
