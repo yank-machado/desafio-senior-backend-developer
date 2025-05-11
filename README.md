@@ -339,4 +339,3 @@ Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para obter diretrizes detalhadas sob
 ### Histórico de Mudanças
 
 Veja [CHANGELOG.md](CHANGELOG.md) para um registro de todas as mudanças notáveis.
-
